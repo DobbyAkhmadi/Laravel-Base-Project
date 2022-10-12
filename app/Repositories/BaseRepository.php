@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Http\Requests\RequestPaginate;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -152,7 +153,7 @@ class BaseRepository implements BaseRepositoryInterface
      * @param $value
      * @return mixed
      */
-    public function getByColumns($columns, $value):mixed
+    public function getByColumns($columns, $value): mixed
     {
         return $this->model->where($columns, $value)->first();
     }
@@ -174,7 +175,7 @@ class BaseRepository implements BaseRepositoryInterface
      */
     public function getById($value): Model
     {
-       return $this->model->find($value)->first();
+        return $this->model->find($value)->first();
     }
 
     /**
@@ -185,5 +186,31 @@ class BaseRepository implements BaseRepositoryInterface
     public function getByIdWithRelationship($value, $relationship): Model
     {
         return $this->model->find($value)->with($relationship)->first();
+    }
+
+    public function save(FormRequest $request): Model
+    {
+        $model = new $this->model;
+        $model->fill($request->validated());
+        $model->save();
+
+        return $model;
+    }
+
+    public function update(FormRequest $request): Model
+    {
+        $model = $this->model->find($request->id);
+        $model->fill($request->validated());
+        $model->update();
+
+        return $model;
+    }
+
+    public function deleteById(string $id): Model
+    {
+        $model = $this->model->find($id);
+        $model->delete();
+
+        return $model;
     }
 }

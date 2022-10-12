@@ -4,9 +4,28 @@ namespace App\Repositories;
 
 use App\Http\Requests\RequestPaginate;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Http\FormRequest;
 
 interface BaseRepositoryInterface
 {
+    /**
+     * @param  FormRequest  $request
+     * @return mixed
+     */
+    public function save(FormRequest $request): Model;
+
+    /**
+     * @param  FormRequest  $request
+     * @return mixed
+     */
+    public function update(FormRequest $request): Model;
+
+    /**
+     * @param  string  $id
+     * @return mixed
+     */
+    public function deleteById(string $id): Model;
+
     /**
      * @param  RequestPaginate  $request
      * @return mixed

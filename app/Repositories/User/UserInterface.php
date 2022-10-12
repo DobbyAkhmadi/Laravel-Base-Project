@@ -3,22 +3,17 @@
 namespace App\Repositories\User;
 
 use App\Http\Requests\Auth\RequestLogin;
-
-
-use App\Http\Requests\User\GetIdUserRequest;
-use App\Http\Requests\User\StoreUserRequest;
-use App\Http\Requests\User\UpdateUserRequest;
+use App\Http\Requests\User\AssignRoleRequest;
+use App\Http\Requests\User\RevokeRoleRequest;
 use App\Repositories\BaseRepositoryInterface;
 
 interface UserInterface extends BaseRepositoryInterface
 {
-    public function save(StoreUserRequest $request);
-
-    public function update(UpdateUserRequest $request);
-
-    public function delete(GetIdUserRequest $request);
-
     public function login(RequestLogin $request);
 
     public function logout();
+
+    public function assignRole(AssignRoleRequest $assignPermissionRequest);
+
+    public function revokeRole(RevokeRoleRequest $revokeRoleRequest);
 }
