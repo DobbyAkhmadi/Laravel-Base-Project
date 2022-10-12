@@ -1,9 +1,12 @@
 <?php
 
+namespace App\Repositories\Employee;
+
 use App\Http\Requests\GetIdEmployeeRequest;
 use App\Http\Requests\StoreEmployeeRequest;
 use App\Http\Requests\UpdateEmployeeRequest;
 use App\Models\Employee;
+use App\Repositories\BaseRepository;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,7 +23,7 @@ class EmployeeRepository extends BaseRepository implements EmployeeInterface
         parent::__construct($employee);
     }
 
-    public function save(StoreEmployeeRequest $request):Model
+    public function save(StoreEmployeeRequest $request): Model
     {
         $model = $this->model;
         $model->fill($request->validated());

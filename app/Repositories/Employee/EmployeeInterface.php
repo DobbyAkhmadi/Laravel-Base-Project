@@ -1,11 +1,14 @@
 <?php
 
+namespace App\Repositories\Employee;
+
 use App\Http\Requests\GetIdEmployeeRequest;
 use App\Http\Requests\StoreEmployeeRequest;
 use App\Http\Requests\UpdateEmployeeRequest;
+use App\Repositories\BaseRepositoryInterface;
 
 /**
- * Interface EmployeeInterface
+ * Interface UserInterface
  */
 interface EmployeeInterface extends BaseRepositoryInterface
 {

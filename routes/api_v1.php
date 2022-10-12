@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\API\v1\UserController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\EmployeeController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,10 +31,18 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/logout', [AuthController::class, 'logout']);
 });
 
+Route::controller(UserController::class)->middleware(['auth:sanctum'])->group(function () {
+    Route::get('/users/detail', 'index');
+    Route::get('/users', 'show');
+    Route::post('/users', 'store');
+    Route::put('/users', 'update');
+    Route::delete('/users', 'destroy');
+});
+
 Route::controller(EmployeeController::class)->middleware(['auth:sanctum'])->group(function () {
-    Route::get('/employee/detail', 'index');
-    Route::get('/employee', 'show');
-    Route::post('/employee', 'store');
-    Route::put('/employee', 'update');
-    Route::delete('/employee', 'destroy');
+    Route::get('/employees/detail', 'index');
+    Route::get('/employees', 'show');
+    Route::post('/employees', 'store');
+    Route::put('/employees', 'update');
+    Route::delete('/employees', 'destroy');
 });

@@ -2,10 +2,12 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Role;
+
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Route;
 use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
+
 
 class CreateRoutePermissionsCommand extends Command
 {

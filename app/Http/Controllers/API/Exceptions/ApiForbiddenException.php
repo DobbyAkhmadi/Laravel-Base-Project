@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\API\Exceptions;
+
 use Symfony\Component\HttpFoundation\Response;
 
 /**

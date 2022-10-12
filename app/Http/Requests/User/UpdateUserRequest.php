@@ -1,10 +1,13 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\User;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class RequestPaginate extends FormRequest
+/**
+ * @property mixed $id
+ */
+class UpdateUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,11 +27,10 @@ class RequestPaginate extends FormRequest
     public function rules(): array
     {
         return [
-            'pageIndex' => '',
-            'pageSize' => '',
-            'searchBy' => '',
-            'sortBy' => '',
-            'filterByColumn' => '',
+            'id' => 'required',
+            'identity_number' => '',
+            'name' => '',
+            'email' => '',
         ];
     }
 }
