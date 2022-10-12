@@ -1,9 +1,9 @@
 <?php
 
+use App\Http\Controllers\API\v1\RoleController;
 use App\Http\Controllers\API\v1\UserController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\EmployeeController;
-
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,12 +31,26 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/logout', [AuthController::class, 'logout']);
 });
 
+Route::controller(RoleController::class)->middleware(['auth:sanctum'])->group(function () {
+    Route::get('/roles/detail', 'index');
+    Route::get('/roles', 'show');
+    Route::post('/roles', 'store');
+    Route::put('/roles', 'update');
+    Route::delete('/roles', 'destroy');
+
+    Route::post('/roles/assign-permissions', 'assign');
+    Route::post('/roles/revoke-permissions', 'revoke');
+});
+
 Route::controller(UserController::class)->middleware(['auth:sanctum'])->group(function () {
     Route::get('/users/detail', 'index');
     Route::get('/users', 'show');
     Route::post('/users', 'store');
     Route::put('/users', 'update');
     Route::delete('/users', 'destroy');
+
+    Route::post('/users/assign-roles', 'assign');
+    Route::post('/users/revoke-roles', 'revoke');
 });
 
 Route::controller(EmployeeController::class)->middleware(['auth:sanctum'])->group(function () {

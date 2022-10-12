@@ -4,13 +4,13 @@ namespace App\Http\Controllers\API\v1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RequestPaginate;
-
+use App\Http\Requests\User\AssignRoleRequest;
 use App\Http\Requests\User\GetIdUserRequest;
+use App\Http\Requests\User\RevokeRoleRequest;
 use App\Http\Requests\User\StoreUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
 use App\Services\UserService;
 use Symfony\Component\HttpFoundation\JsonResponse;
-
 
 class UserController extends Controller
 {
@@ -37,10 +37,10 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param RequestPaginate $requestPaginate
+     * @param  RequestPaginate  $requestPaginate
      * @return JsonResponse
      */
-    public function index(RequestPaginate $requestPaginate):JsonResponse
+    public function index(RequestPaginate $requestPaginate): JsonResponse
     {
         return response()->json($this->userService->getPagination($requestPaginate));
     }
@@ -48,10 +48,10 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param GetIdUserRequest $request
+     * @param  GetIdUserRequest  $request
      * @return JsonResponse
      */
-    public function show(GetIdUserRequest $request):JsonResponse
+    public function show(GetIdUserRequest $request): JsonResponse
     {
         return response()->json($this->userService->show($request));
     }
@@ -59,10 +59,10 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param StoreUserRequest $request
+     * @param  StoreUserRequest  $request
      * @return JsonResponse
      */
-    public function store(StoreUserRequest $request):JsonResponse
+    public function store(StoreUserRequest $request): JsonResponse
     {
         return response()->json($this->userService->store($request));
     }
@@ -70,10 +70,10 @@ class UserController extends Controller
     /**
      * Update existing resource in storage.
      *
-     * @param UpdateUserRequest $request
+     * @param  UpdateUserRequest  $request
      * @return JsonResponse
      */
-    public function update(UpdateUserRequest $request):JsonResponse
+    public function update(UpdateUserRequest $request): JsonResponse
     {
         return response()->json($this->userService->update($request));
     }
@@ -81,12 +81,21 @@ class UserController extends Controller
     /**
      * Delete a listing of the resource.
      *
-     * @param GetIdUserRequest $request
+     * @param  GetIdUserRequest  $request
      * @return JsonResponse
      */
-    public function destroy(GetIdUserRequest $request):JsonResponse
+    public function destroy(GetIdUserRequest $request): JsonResponse
     {
         return response()->json($this->userService->delete($request));
     }
 
+    public function assign(AssignRoleRequest $assignPermissionRequest): JsonResponse
+    {
+        return response()->json($this->userService->assignRole($assignPermissionRequest));
+    }
+
+    public function revoke(RevokeRoleRequest $revokeRoleRequest): JsonResponse
+    {
+        return response()->json($this->userService->revokeRole($revokeRoleRequest));
+    }
 }

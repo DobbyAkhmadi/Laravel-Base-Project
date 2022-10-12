@@ -3,12 +3,10 @@
 namespace App\Repositories\User;
 
 use App\Http\Requests\Auth\RequestLogin;
-use App\Http\Requests\User\GetIdUserRequest;
-use App\Http\Requests\User\StoreUserRequest;
-use App\Http\Requests\User\UpdateUserRequest;
+use App\Http\Requests\User\AssignRoleRequest;
+use App\Http\Requests\User\RevokeRoleRequest;
 use App\Models\User;
 use App\Repositories\BaseRepository;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -68,28 +66,21 @@ class UserRepository extends BaseRepository implements UserInterface
         ];
     }
 
-    public function save(StoreUserRequest $request): Model
+    public function assignRole(AssignRoleRequest $assignPermissionRequest)
     {
-        $model = new $this->model;
-        $model->fill($request->validated());
-        $model->save();
+        $getCurrentUser = $this->model->where('identity_number', $assignPermissionRequest->identity_number)->first();
 
-        return $model;
+        $getCurrentUser->assignRole($assignPermissionRequest->role_name);
+
+        return $getCurrentUser->attributesToArray();
     }
 
-    public function update(UpdateUserRequest $request): Model
+    public function revokeRole(RevokeRoleRequest $revokeRoleRequest)
     {
-        $model = $this->model->find($request->id);
-        $model->fill($request->validated());
-        $model->update();
+        $getCurrentUser = $this->model->where('identity_number', $revokeRoleRequest->identity_number)->first();
 
-        return $model;
-    }
+        $getCurrentUser->roles()->detach();
 
-    public function delete(GetIdUserRequest $request): Model
-    {
-        $model = $this->model->find($request->id);
-        $model->delete();
-        return $model;
+        return $getCurrentUser->attributesToArray();
     }
 }

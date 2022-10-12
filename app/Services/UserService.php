@@ -2,13 +2,17 @@
 
 namespace App\Services;
 
+use App\Http\Controllers\API\Exceptions\ApiBadRequestException;
 use App\Http\Controllers\API\Exceptions\ApiSystemException;
 use App\Http\Requests\Auth\RequestLogin;
 use App\Http\Requests\RequestPaginate;
+use App\Http\Requests\User\AssignRoleRequest;
 use App\Http\Requests\User\GetIdUserRequest;
+use App\Http\Requests\User\RevokeRoleRequest;
 use App\Http\Requests\User\StoreUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
 use App\Repositories\User\UserInterface;
+use Exception;
 use Symfony\Component\HttpFoundation\Response;
 
 class UserService
@@ -44,24 +48,24 @@ class UserService
         }
     }
 
-    public function getPagination(RequestPaginate $request):array
+    public function getPagination(RequestPaginate $request): array
     {
         try {
-            return $this->user->getPaginationWithRelationship($request,'roles');
+            return $this->user->getPaginationWithRelationship($request, 'roles');
         } catch (\Exception) {
             throw new ApiSystemException();
         }
     }
 
-    public function show(GetIdUserRequest $request):array
+    public function show(GetIdUserRequest $request): array
     {
         try {
-            $check = $this->user->getByColumns('id',$request->id);
-            if (!empty($check)) {
+            $check = $this->user->getByColumns('id', $request->id);
+            if (! empty($check)) {
                 return [
                     'status' => Response::HTTP_OK,
                     'message' => 'successfully retrieved data',
-                    'data' => $this->user->getByIdWithRelationship($request->id,'roles'),
+                    'data' => $this->user->getByIdWithRelationship($request->id, 'roles'),
                 ];
             } else {
                 return [
@@ -77,7 +81,7 @@ class UserService
     public function store(StoreUserRequest $request): array
     {
         try {
-            $check = $this->user->getByColumns("email",$request->email);
+            $check = $this->user->getByColumns('email', $request->email);
             if (empty($check)) {
                 return [
                     'status' => Response::HTTP_CREATED,
@@ -98,8 +102,8 @@ class UserService
     public function update(UpdateUserRequest $request): array
     {
         try {
-            $check = $this->user->getByColumns("id",$request->id);
-            if (!empty($check)) {
+            $check = $this->user->getByColumns('id', $request->id);
+            if (! empty($check)) {
                 return [
                     'status' => Response::HTTP_OK,
                     'message' => 'successfully updated data',
@@ -116,15 +120,15 @@ class UserService
         }
     }
 
-    public function delete(GetIdUserRequest $request):array
+    public function delete(GetIdUserRequest $request): array
     {
         try {
-            $check = $this->user->getByColumns('id',$request->id);
-            if (!empty($check)) {
+            $check = $this->user->getByColumns('id', $request->id);
+            if (! empty($check)) {
                 return [
                     'status' => Response::HTTP_OK,
                     'message' => 'successfully delete data',
-                    'data' => $this->user->delete($request),
+                    'data' => $this->user->deleteById($request->id),
                 ];
             } else {
                 return [
@@ -134,6 +138,56 @@ class UserService
             }
         } catch (\Exception) {
             throw new ApiSystemException();
+        }
+    }
+
+    /**
+     * @param  AssignRoleRequest  $assignPermissionRequest
+     * @return mixed
+     */
+    public function assignRole(AssignRoleRequest $assignPermissionRequest): array
+    {
+        try {
+            $check = $this->user->getByColumns('identity_number', $assignPermissionRequest->identity_number);
+            if (! empty($check)) {
+                return [
+                    'status' => Response::HTTP_OK,
+                    'message' => 'successfully assign data',
+                    'data' => $this->user->assignRole($assignPermissionRequest),
+                ];
+            } else {
+                return [
+                    'status' => Response::HTTP_NO_CONTENT,
+                    'message' => 'user not found !',
+                ];
+            }
+        } catch (Exception) {
+            throw new ApiBadRequestException();
+        }
+    }
+
+    /**
+     * @param  RevokeRoleRequest  $revokeRoleRequest
+     * @return mixed
+     */
+    public function revokeRole(RevokeRoleRequest $revokeRoleRequest): array
+    {
+        try {
+            $check = $this->user->getByColumns('identity_number', $revokeRoleRequest->identity_number);
+            if (! empty($check)) {
+                return [
+                    'status' => Response::HTTP_OK,
+                    'message' => 'successfully revoke data',
+                    'data' => $this->user->revokeRole($revokeRoleRequest),
+                ];
+            } else {
+                return [
+                    'status' => Response::HTTP_NO_CONTENT,
+                    'message' => 'user not found !',
+                ];
+            }
+        } catch (Exception) {
+            throw new ApiBadRequestException();
         }
     }
 }
