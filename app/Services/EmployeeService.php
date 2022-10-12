@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\API\Exceptions\ApiBadRequestException;
+use App\Http\Requests\RequestPaginate;
+use App\Repositories\Employee\EmployeeInterface;
 
 class EmployeeService
 {
@@ -10,7 +12,7 @@ class EmployeeService
     protected EmployeeInterface $employee;
 
     /**
-     * @param EmployeeInterface $employee
+     * @param  EmployeeInterface  $employee
      */
     public function __construct(EmployeeInterface $employee)
     {

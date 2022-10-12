@@ -1,5 +1,8 @@
 <?php
 
+namespace App\Repositories;
+
+use App\Http\Requests\RequestPaginate;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
@@ -149,21 +152,9 @@ class BaseRepository implements BaseRepositoryInterface
      * @param $value
      * @return mixed
      */
-    public function getByColumns($columns, $value): array
+    public function getByColumns($columns, $value):mixed
     {
-        $data = $this->model->where($columns, $value)->first();
-        if (! empty($data)) {
-            return [
-                'status' => Response::HTTP_OK,
-                'message' => 'successfully retrieved data',
-                'data' => $data,
-            ];
-        } else {
-            return [
-                'status' => Response::HTTP_NO_CONTENT,
-                'message' => 'Content not found',
-            ];
-        }
+        return $this->model->where($columns, $value)->first();
     }
 
     /**
@@ -172,63 +163,27 @@ class BaseRepository implements BaseRepositoryInterface
      * @param $relationship
      * @return array
      */
-    public function getByColumnsWithRelationship($columns, $value, $relationship): array
+    public function getByColumnsWithRelationship($columns, $value, $relationship): mixed
     {
-        $data = $this->model->where($columns, $value)->with($relationship)->first();
-        if (! empty($data)) {
-            return [
-                'status' => Response::HTTP_OK,
-                'message' => 'successfully retrieved data',
-                'data' => $data,
-            ];
-        } else {
-            return [
-                'status' => Response::HTTP_NO_CONTENT,
-                'message' => 'Content not found',
-            ];
-        }
+        return $this->model->where($columns, $value)->with($relationship)->first();
     }
 
     /**
      * @param $value
-     * @return array
+     * @return Model
      */
-    public function getById($value): array
+    public function getById($value): Model
     {
-        $data = $this->model->find($value)->first();
-        if (! empty($data)) {
-            return [
-                'status' => Response::HTTP_OK,
-                'message' => 'successfully retrieved data',
-                'data' => $data,
-            ];
-        } else {
-            return [
-                'status' => Response::HTTP_NO_CONTENT,
-                'message' => 'Content not found',
-            ];
-        }
+       return $this->model->find($value)->first();
     }
 
     /**
      * @param $value
      * @param $relationship
-     * @return array
+     * @return Model
      */
-    public function getByIdWithRelationship($value, $relationship): array
+    public function getByIdWithRelationship($value, $relationship): Model
     {
-        $data = $this->model->find($value)->with($relationship)->first();
-        if (! empty($data)) {
-            return [
-                'status' => Response::HTTP_OK,
-                'message' => 'successfully retrieved data',
-                'data' => $data,
-            ];
-        } else {
-            return [
-                'status' => Response::HTTP_NO_CONTENT,
-                'message' => 'Content not found',
-            ];
-        }
+        return $this->model->find($value)->with($relationship)->first();
     }
 }

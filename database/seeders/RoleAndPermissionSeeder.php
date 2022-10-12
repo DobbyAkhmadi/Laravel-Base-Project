@@ -34,6 +34,7 @@ class RoleAndPermissionSeeder extends Seeder
         if (empty($roleSA)) {
             $roleSA = Role::create([
                 'name' => 'super-admin',
+                'guard_name' => 'api',
                 'descriptions' => 'Super Administrator',
             ]);
         }

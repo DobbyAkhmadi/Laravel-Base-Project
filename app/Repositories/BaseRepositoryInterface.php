@@ -1,5 +1,8 @@
 <?php
 
+namespace App\Repositories;
+
+use App\Http\Requests\RequestPaginate;
 use Illuminate\Database\Eloquent\Model;
 
 interface BaseRepositoryInterface
@@ -22,7 +25,7 @@ interface BaseRepositoryInterface
      * @param $value
      * @return mixed
      */
-    public function getByColumns($columns, $value): array;
+    public function getByColumns($columns, $value): mixed;
 
     /**
      * @param $columns
@@ -30,18 +33,18 @@ interface BaseRepositoryInterface
      * @param $relationship
      * @return mixed
      */
-    public function getByColumnsWithRelationship($columns, $value, $relationship): array;
+    public function getByColumnsWithRelationship($columns, $value, $relationship): mixed;
 
     /**
      * @param $value
-     * @return array
+     * @return Model
      */
-    public function getById($value): array;
+    public function getById($value): Model;
 
     /**
      * @param $value
      * @param $relationship
-     * @return array
+     * @return Model
      */
-    public function getByIdWithRelationship($value, $relationship): array;
+    public function getByIdWithRelationship($value, $relationship): Model;
 }

@@ -2,13 +2,14 @@
 
 namespace App\Providers;
 
-use BaseRepository;
-use BaseRepositoryInterface;
+use app\Repositories\BaseRepository;
+use App\Repositories\BaseRepositoryInterface;
+use App\Repositories\Employee\EmployeeInterface;
+use App\Repositories\Employee\EmployeeRepository;
+use App\Repositories\User\UserInterface;
+use App\Repositories\User\UserRepository;
 use Carbon\Laravel\ServiceProvider;
-use EmployeeInterface;
-use EmployeeRepository;
-use UserInterface;
-use UserRepository;
+
 
 class RepositoryServiceProvider extends ServiceProvider
 {
