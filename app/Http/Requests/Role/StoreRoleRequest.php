@@ -4,6 +4,9 @@ namespace App\Http\Requests\Role;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * @property mixed $name
+ */
 class StoreRoleRequest extends FormRequest
 {
     /**
@@ -24,7 +27,9 @@ class StoreRoleRequest extends FormRequest
     public function rules(): array
     {
         return [
-
+            'name' => 'required',
+            'guard_name' => 'required',
+            'descriptions' => 'required',
         ];
     }
 }
