@@ -32,7 +32,7 @@ class BaseRepository implements BaseRepositoryInterface
         $query = $this->model->query();
 
         // search by column name
-        $searchByColumn = $request->input('searchBy');
+        $searchByColumn = $request->searchBy;
         if (! empty($searchByColumn) && $searchByColumn != '') {
             $searchResult = explode(',', $searchByColumn);
             if (count($searchResult) > 0) {
@@ -41,7 +41,7 @@ class BaseRepository implements BaseRepositoryInterface
         }
 
         // filter by column
-        $filterByColumn = $request->input('filterByColumn');
+        $filterByColumn = $request->filterByColumn;
         if (! empty($filterByColumn) && $filterByColumn != '') {
             $selectResult = explode(',', $filterByColumn);
             if (count($selectResult) > 0) {
@@ -50,7 +50,7 @@ class BaseRepository implements BaseRepositoryInterface
         }
 
         // sorting by column name
-        $sortByColumn = $request->input('sortBy');
+        $sortByColumn = $request->sortBy;
         if (! empty($sortByColumn) && $sortByColumn != '') {
             $sortResult = explode(',', $sortByColumn);
             if (count($sortResult) > 0) {
@@ -95,7 +95,7 @@ class BaseRepository implements BaseRepositoryInterface
         $query = $this->model->query()->with($relationship);
 
         // search by column name
-        $searchByColumn = $request->input('searchBy');
+        $searchByColumn = $request->searchBy;
         if (! empty($searchByColumn) && $searchByColumn != '') {
             $searchResult = explode(',', $searchByColumn);
             if (count($searchResult) > 0) {
@@ -104,7 +104,7 @@ class BaseRepository implements BaseRepositoryInterface
         }
 
         // filter by column
-        $filterByColumn = $request->input('filterByColumn');
+        $filterByColumn = $request->filterByColumn;
         if (! empty($filterByColumn) && $filterByColumn != '') {
             $selectResult = explode(',', $filterByColumn);
             if (count($selectResult) > 0) {
@@ -113,7 +113,7 @@ class BaseRepository implements BaseRepositoryInterface
         }
 
         // sorting by column name
-        $sortByColumn = $request->input('sortBy');
+        $sortByColumn = $request->sortBy;
         if (! empty($sortByColumn) && $sortByColumn != '') {
             $sortResult = explode(',', $sortByColumn);
             if (count($sortResult) > 0) {

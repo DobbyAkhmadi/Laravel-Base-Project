@@ -1,9 +1,10 @@
 <?php
 
+use App\Http\Controllers\API\v1\EmployeeController;
 use App\Http\Controllers\API\v1\RoleController;
 use App\Http\Controllers\API\v1\UserController;
 use App\Http\Controllers\Auth\AuthController;
-use App\Http\Controllers\EmployeeController;
+
 use Illuminate\Support\Facades\Route;
 
 /*

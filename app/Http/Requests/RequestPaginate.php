@@ -4,6 +4,12 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * @property mixed $pageSize
+ * @property mixed $filterByColumn
+ * @property mixed $searchBy
+ * @property mixed $sortBy
+ */
 class RequestPaginate extends FormRequest
 {
     /**
