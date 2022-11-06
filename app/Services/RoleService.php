@@ -31,9 +31,9 @@ class RoleService
 
     /**
      * @param  RequestPaginate  $request
-     * @return mixed
+     * @return array
      */
-    public function getPagination(RequestPaginate $request): mixed
+    public function getPagination(RequestPaginate $request): array
     {
         try {
             return $this->role->getPaginationWithRelationship($request, 'permissions');
@@ -144,7 +144,7 @@ class RoleService
 
     /**
      * @param  AssignPermissionRequest  $assignPermissionRequest
-     * @return mixed
+     * @return array
      */
     public function assignPermission(AssignPermissionRequest $assignPermissionRequest): array
     {

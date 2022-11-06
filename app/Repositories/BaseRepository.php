@@ -88,7 +88,7 @@ class BaseRepository implements BaseRepositoryInterface
     /**
      * @param  RequestPaginate  $request
      * @param $relationship
-     * @return mixed
+     * @return array
      */
     public function getPaginationWithRelationship(RequestPaginate $request, $relationship): array
     {
@@ -175,7 +175,7 @@ class BaseRepository implements BaseRepositoryInterface
      */
     public function getById($value): Model
     {
-        return $this->model->find($value)->first();
+        return $this->model->find($value);
     }
 
     /**

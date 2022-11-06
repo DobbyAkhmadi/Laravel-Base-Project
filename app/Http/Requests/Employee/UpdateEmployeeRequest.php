@@ -4,6 +4,9 @@ namespace App\Http\Requests\Employee;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * @property mixed $id
+ */
 class UpdateEmployeeRequest extends FormRequest
 {
     /**
@@ -13,7 +16,7 @@ class UpdateEmployeeRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +27,11 @@ class UpdateEmployeeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'id' => 'required',
+            'identity_number' => '',
+            'full_name' => '',
+            'phone_number' => '',
+            'address' => '',
         ];
     }
 }

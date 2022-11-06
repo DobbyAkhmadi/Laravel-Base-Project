@@ -2,7 +2,7 @@
 ### Laravel Backend Basic Package For Project
 ![img.png](img.png)![img_1.png](img_1.png)
 
-This project has implement DDD ( Domain Driven  Design )
+This project has implement DDD ( Domain Driven Design )
 > ### SOLID Principles of Object-Oriented Design
 > - Singleton 
 > - Open/Closed
@@ -37,12 +37,12 @@ The log can now be accessed at
     http://localhost:8080/log-viewer
 
 ### Current Basic Features
-- Sample CRUD
+- Sample CRUD with soft delete
 - Swagger UI
 - Logger UI Management
 - Authentication
-- Role Management
-- API Exception
+- Role Management and Custom Permission
+- Custom API Exception
 - Laravel Sail with Docker All In One Application Package
 
 ### Run the application

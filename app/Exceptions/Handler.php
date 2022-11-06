@@ -100,7 +100,8 @@ class Handler extends ExceptionHandler
             abort(response()->json(
                 [
                     'status' => Response::HTTP_INTERNAL_SERVER_ERROR,
-                    'message' => 'Database Error or Not Connected with message : '.$e->getMessage(),
+                    'message' => 'Database Error or Not Connected',
+                    'error' => $e->getMessage(),
                 ],
                 Response::HTTP_INTERNAL_SERVER_ERROR
             ));
